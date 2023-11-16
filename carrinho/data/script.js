@@ -1,21 +1,47 @@
-const socket = new WebSocket('ws://10.93.0.219:81');
-const btn = document.querySelector("#btn");
+const socket = new WebSocket("ws://192.168.4.1:81/");
+const frente = document.querySelector("#frente");
+const tras = document.querySelector("#tras");
+const gdir = document.querySelector("#gdir");
+const gesq = document.querySelector("#gesq");
 
-// Evento chamado quando a conexão WebSocket é aberta
 socket.addEventListener('open', (event) => {
-    console.log('Conexão WebSocket aberta');
-            
-    // Envia uma mensagem para o servidor quando a conexão é aberta
-    socket.send('Olá, servidor!');
+    console.log('Conexão WebSocket aberta');      
 });
 
-// Evento chamado quando uma mensagem é recebida do servidor
-socket.addEventListener('message', (event) => {
-    console.log('Mensagem recebida do servidor:', event.data);
+//touchstarts
+
+frente.addEventListener('touchstart', () => {
+     socket.send('frente');
 });
 
-// Adiciona um ouvinte de evento ao botão
-btn.addEventListener('click', () => {
-    // Envia uma mensagem para o servidor quando o botão é pressionado
-    socket.send('frente');
+tras.addEventListener('touchstart', () => {
+    socket.send('tras');
 });
+
+gdir.addEventListener('touchstart', () => {
+    socket.send('gdir');
+});
+
+gesq.addEventListener('touchstart', () => {
+    socket.send('gesq');
+});
+
+//touchends
+
+frente.addEventListener('touchend', () => {
+     socket.send('parado');
+});
+
+gdir.addEventListener('touchend', () => {
+    socket.send('parado');
+});
+
+gesq.addEventListener('touchend', () => {
+    socket.send('parado');
+});
+
+tras.addEventListener('touchend', () => {
+    socket.send('parado');
+});
+
+
